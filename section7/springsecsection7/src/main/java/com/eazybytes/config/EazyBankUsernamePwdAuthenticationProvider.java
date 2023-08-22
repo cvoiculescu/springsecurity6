@@ -14,9 +14,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Component
 @AllArgsConstructor
@@ -42,11 +42,10 @@ public class EazyBankUsernamePwdAuthenticationProvider implements Authentication
     }
 
     private List<GrantedAuthority> getGrantedAuthorities(Set<Authority> authorities) {
-        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-        for (Authority authority : authorities) {
-            grantedAuthorities.add(new SimpleGrantedAuthority(authority.getName()));
-        }
-        return grantedAuthorities;
+        return authorities.stream()
+                .map(Authority::getName)
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
     }
 
     @Override
