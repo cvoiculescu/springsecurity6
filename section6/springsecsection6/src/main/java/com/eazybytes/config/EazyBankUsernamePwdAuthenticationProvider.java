@@ -2,6 +2,7 @@ package com.eazybytes.config;
 
 import com.eazybytes.model.Customer;
 import com.eazybytes.repository.CustomerRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -17,12 +18,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
+@AllArgsConstructor
 public class EazyBankUsernamePwdAuthenticationProvider implements AuthenticationProvider {
 
-    @Autowired
     private CustomerRepository customerRepository;
-
-    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Override
@@ -30,7 +29,7 @@ public class EazyBankUsernamePwdAuthenticationProvider implements Authentication
         String username = authentication.getName();
         String pwd = authentication.getCredentials().toString();
         List<Customer> customer = customerRepository.findByEmail(username);
-        if (customer.size() > 0) {
+        if (!customer.isEmpty()) {
             if (passwordEncoder.matches(pwd, customer.get(0).getPwd())) {
                 List<GrantedAuthority> authorities = new ArrayList<>();
                 authorities.add(new SimpleGrantedAuthority(customer.get(0).getRole()));

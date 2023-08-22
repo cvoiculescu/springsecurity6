@@ -3,6 +3,7 @@ package com.eazybytes.controller;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.CacheControl;
 import org.springframework.http.ResponseEntity;
@@ -13,9 +14,9 @@ import com.eazybytes.model.Notice;
 import com.eazybytes.repository.NoticeRepository;
 
 @RestController
+@AllArgsConstructor
 public class NoticesController {
 
-    @Autowired
     private NoticeRepository noticeRepository;
 
     @GetMapping("/notices")
