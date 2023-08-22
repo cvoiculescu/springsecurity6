@@ -3,6 +3,7 @@ package com.eazybytes.controller;
 import java.sql.Date;
 import java.util.Random;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,9 +13,9 @@ import com.eazybytes.model.Contact;
 import com.eazybytes.repository.ContactRepository;
 
 @RestController
+@AllArgsConstructor
 public class ContactController {
 
-    @Autowired
     private ContactRepository contactRepository;
 
     @PostMapping("/contact")
