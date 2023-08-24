@@ -19,6 +19,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class JWTTokenGeneratorFilter extends OncePerRequestFilter {
 
@@ -32,7 +33,7 @@ public class JWTTokenGeneratorFilter extends OncePerRequestFilter {
                     .claim("username", authentication.getName())
                     .claim("authorities", populateAuthorities(authentication.getAuthorities()))
                     .setIssuedAt(new Date())
-                    .setExpiration(new Date((new Date()).getTime() + 30000000))
+                    .setExpiration(new Date((new Date()).getTime() + 30_000_000))
                     .signWith(key).compact();
             response.setHeader(SecurityConstants.JWT_HEADER, jwt);
         }
@@ -46,11 +47,10 @@ public class JWTTokenGeneratorFilter extends OncePerRequestFilter {
     }
 
     private String populateAuthorities(Collection<? extends GrantedAuthority> collection) {
-        Set<String> authoritiesSet = new HashSet<>();
-        for (GrantedAuthority authority : collection) {
-            authoritiesSet.add(authority.getAuthority());
-        }
-        return String.join(",", authoritiesSet);
+        return collection.stream()
+                .map(GrantedAuthority::getAuthority)
+                .distinct()
+                .collect(Collectors.joining(","));
     }
 
 }

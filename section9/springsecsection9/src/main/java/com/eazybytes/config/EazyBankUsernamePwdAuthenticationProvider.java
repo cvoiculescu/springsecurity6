@@ -32,7 +32,7 @@ public class EazyBankUsernamePwdAuthenticationProvider implements Authentication
         String username = authentication.getName();
         String pwd = authentication.getCredentials().toString();
         List<Customer> customer = customerRepository.findByEmail(username);
-        if (customer.size() > 0) {
+        if (!customer.isEmpty()) {
             if (passwordEncoder.matches(pwd, customer.get(0).getPwd())) {
                 return new UsernamePasswordAuthenticationToken(username, pwd, getGrantedAuthorities(customer.get(0).getAuthorities()));
             } else {
