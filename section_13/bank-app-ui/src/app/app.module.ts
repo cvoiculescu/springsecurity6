@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { APP_INITIALIZER,NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
@@ -20,14 +20,14 @@ function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
     keycloak.init({
       config: {
-        url: 'http://localhost:8180/',
-        realm: 'eazybankdev',
+        url: 'http://localhost:8180/auth/',
+        realm: 'EazyBankDev',
         clientId: 'eazypublicclient',
       },
       initOptions: {
         pkceMethod: 'S256',
         redirectUri: 'http://localhost:4200/dashboard',
-      },loadUserProfileAtStartUp: false
+      }, loadUserProfileAtStartUp: false
     });
 }
 

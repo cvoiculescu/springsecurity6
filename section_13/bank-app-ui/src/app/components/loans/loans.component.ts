@@ -14,21 +14,21 @@ export class LoansComponent implements OnInit {
   loans = new Array();
   currOutstandingBalance: number = 0;
 
-  constructor(private dashboardService: DashboardService) { }
+  constructor(private dashboardService: DashboardService) {
+  }
 
   ngOnInit(): void {
     this.user = JSON.parse(sessionStorage.getItem('userdetails') || "");
-    if(this.user){
+    if (this.user) {
       this.dashboardService.getLoansDetails(this.user.email).subscribe(
         responseData => {
-        this.loans = <any> responseData.body;
-        this.loans.forEach(function (this: LoansComponent, loan: Loans) {
-          this.currOutstandingBalance = this.currOutstandingBalance+loan.outstandingAmount;
-        }.bind(this)); 
+          this.loans = <any>responseData.body;
+          this.loans.forEach(function (this: LoansComponent, loan: Loans) {
+            this.currOutstandingBalance = this.currOutstandingBalance + loan.outstandingAmount;
+          }.bind(this));
         });
     }
   }
 
-  
 
 }

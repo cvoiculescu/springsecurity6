@@ -18,13 +18,13 @@ export class ContactComponent implements OnInit {
   }
 
   ngOnInit() {
-      
+
   }
 
   saveMessage(contactForm: NgForm) {
     this.dashboardService.saveMessage(this.model).subscribe(
       responseData => {
-        this.contacts = <any> responseData.body;
+        this.contacts = <any>responseData.body;
         this.contacts.forEach(function (this: ContactComponent, contact: Contact) {
           this.model = contact;
         }.bind(this));

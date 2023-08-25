@@ -13,14 +13,15 @@ export class BalanceComponent implements OnInit {
   user = new User();
   transactions = new Array();
 
-  constructor(private dashboardService: DashboardService) { }
+  constructor(private dashboardService: DashboardService) {
+  }
 
   ngOnInit(): void {
     this.user = JSON.parse(sessionStorage.getItem('userdetails') || "");
-    if(this.user){
+    if (this.user) {
       this.dashboardService.getAccountTransactions(this.user.email).subscribe(
         responseData => {
-        this.transactions = <any> responseData.body;
+          this.transactions = <any>responseData.body;
         });
     }
   }

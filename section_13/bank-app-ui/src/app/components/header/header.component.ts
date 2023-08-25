@@ -9,13 +9,14 @@ import { KeycloakProfile } from 'keycloak-js';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  
+
   user = new User();
 
   public isLoggedIn = false;
   public userProfile: KeycloakProfile | null = null;
 
-  constructor(private readonly keycloak: KeycloakService) { }
+  constructor(private readonly keycloak: KeycloakService) {
+  }
 
   public async ngOnInit() {
     this.isLoggedIn = await this.keycloak.isLoggedIn();
@@ -24,8 +25,8 @@ export class HeaderComponent implements OnInit {
       this.userProfile = await this.keycloak.loadUserProfile();
       this.user.authStatus = 'AUTH';
       this.user.name = this.userProfile.firstName || "";
-      window.sessionStorage.setItem("userdetails",JSON.stringify(this.user));
-      
+      window.sessionStorage.setItem("userdetails", JSON.stringify(this.user));
+
     }
   }
 

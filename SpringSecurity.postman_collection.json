@@ -1907,7 +1907,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:8180/realms/eazybankdev/protocol/openid-connect/token",
+							"raw": "http://localhost:8180/auth/realms/eazybankdev/protocol/openid-connect/token",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1984,7 +1984,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8180/realms/eazybankdev/protocol/openid-connect/auth?client_id=eazybankclient&response_type=code&scope=openid&redirect_uri=http://localhost:7080/sample&state=fdjgjfgdjhgffas",
+							"raw": "http://localhost:8180/auth/realms/eazybankdev/protocol/openid-connect/auth?client_id=eazybankclient&response_type=code&scope=openid&redirect_uri=http://localhost:7080/sample&state=fdjgjfgdjhgffas",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -2064,7 +2064,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:8180/realms/eazybankdev/protocol/openid-connect/token",
+							"raw": "http://localhost:8180/auth/realms/eazybankdev/protocol/openid-connect/token",
 							"protocol": "http",
 							"host": [
 								"localhost"

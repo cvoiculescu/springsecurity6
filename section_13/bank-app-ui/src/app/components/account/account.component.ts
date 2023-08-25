@@ -11,14 +11,16 @@ import { Account } from 'src/app/model/account.model';
 export class AccountComponent implements OnInit {
   user = new User();
   account = new Account();
-  constructor(private dashboardService: DashboardService) { }
+
+  constructor(private dashboardService: DashboardService) {
+  }
 
   ngOnInit(): void {
     this.user = JSON.parse(sessionStorage.getItem('userdetails')!);
-    if(this.user){
+    if (this.user) {
       this.dashboardService.getAccountDetails(this.user.email).subscribe(
         responseData => {
-        this.account = <any> responseData.body;
+          this.account = <any>responseData.body;
         });
     }
 

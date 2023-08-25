@@ -1,9 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  Router,
-  RouterStateSnapshot,
-} from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, } from '@angular/router';
 import { KeycloakAuthGuard, KeycloakService } from 'keycloak-angular';
 import { User } from '../model/user.model';
 import { KeycloakProfile } from 'keycloak-js';
@@ -14,6 +10,7 @@ import { KeycloakProfile } from 'keycloak-js';
 export class AuthKeyClockGuard extends KeycloakAuthGuard {
   user = new User();
   public userProfile: KeycloakProfile | null = null;
+
   constructor(
     protected override readonly router: Router,
     protected readonly keycloak: KeycloakService
@@ -30,18 +27,18 @@ export class AuthKeyClockGuard extends KeycloakAuthGuard {
       await this.keycloak.login({
         redirectUri: window.location.origin + state.url,
       });
-    }else{
-        this.userProfile = await this.keycloak.loadUserProfile();
-        this.user.authStatus = 'AUTH';
-        this.user.name = this.userProfile.firstName || "";
-        this.user.email = this.userProfile.email || "";
-        window.sessionStorage.setItem("userdetails",JSON.stringify(this.user));
+    } else {
+      this.userProfile = await this.keycloak.loadUserProfile();
+      this.user.authStatus = 'AUTH';
+      this.user.name = this.userProfile.firstName || "";
+      this.user.email = this.userProfile.email || "";
+      window.sessionStorage.setItem("userdetails", JSON.stringify(this.user));
     }
 
     // Get the roles required from the route.
     const requiredRoles = route.data["roles"];
 
-    // Allow the user to to proceed if no additional roles are required to access the route.
+    // Allow the user to proceed if no additional roles are required to access the route.
     if (!(requiredRoles instanceof Array) || requiredRoles.length === 0) {
       return true;
     }
